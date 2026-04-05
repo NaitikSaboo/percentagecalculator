@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://percentagecalculator.vercel.app/sitemap.xml
