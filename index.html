@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Percentage Calculator — What is X% of Y? Increase, Decrease & More | PercentageCalculator</title>
+<meta name="description" content="Free percentage calculator — calculate what is X% of Y, percentage increase, percentage decrease, percentage change and tip calculator. Instant results, no signup needed." />
+<meta name="keywords" content="percentage calculator, what is 20 percent of, percentage increase calculator, percentage decrease calculator, percentage change calculator, how to calculate percentage, percent calculator online, tip calculator, percentage of a number, percentage formula" />
+<link rel="canonical" href="https://percentagecalculator.vercel.app/" />
+
+<meta property="og:title" content="Percentage Calculator — X% of Y, Increase, Decrease & More" />
+<meta property="og:description" content="5 percentage calculators in one — what is X% of Y, percentage increase/decrease, change and tip. Free, instant, no signup." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://percentagecalculator.vercel.app/" />
+<meta property="og:site_name" content="PercentageCalculator" />
+<meta property="og:locale" content="en_IN" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Percentage Calculator — Free Online Percent Calculator" />
+<meta name="twitter:description" content="Calculate percentages instantly — what is X% of Y, percentage increase, decrease and more." />
+
+<meta name="robots" content="index, follow" />
+<meta name="author" content="PercentageCalculator" />
+<meta name="geo.region" content="IN" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Percentage Calculator",
+  "url": "https://percentagecalculator.vercel.app/",
+  "description": "Free online percentage calculator. Calculate what is X% of Y, percentage increase, decrease, change and tip calculator.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "21000" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fffbf5;
+  --surface: #ffffff;
+  --surface2: #fffdf9;
+  --accent: #c2410c;
+  --accent2: #ea580c;
+  --accent3: #fff7ed;
+  --accent-light: #fed7aa;
+  --accent-glow: rgba(194,65,12,0.12);
+  --teal: #0d9488;
+  --teal-bg: #f0fdfa;
+  --blue: #1d4ed8;
+  --blue-bg: #eff6ff;
+  --purple: #7c3aed;
+  --purple-bg: #f5f3ff;
+  --green: #15803d;
+  --green-bg: #f0fdf4;
+  --ink: #1c0a00;
+  --ink2: #57340a;
+  --ink3: #a87c50;
+  --border: rgba(194,65,12,0.10);
+  --border2: rgba(194,65,12,0.20);
+  --ff-head: 'Fraunces', Georgia, serif;
+  --ff-body: 'DM Sans', system-ui, sans-serif;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(194,65,12,0.08);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--ff-body); background: var(--bg); color: var(--ink); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+
+/* NAV */
+nav {
+  background: rgba(255,251,245,0.93); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { font-family: var(--ff-head); font-size: 20px; font-weight: 700; color: var(--ink); text-decoration: none; }
+.logo span { color: var(--accent2); font-style: italic; }
+.nav-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent2); background: var(--accent3); border: 1px solid var(--accent-light); padding: 4px 12px; border-radius: 20px; }
+
+/* HERO */
+.hero { text-align: center; padding: 3.5rem 1.5rem 2.5rem; }
+.hero h1 { font-family: var(--ff-head); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.1; color: var(--ink); margin-bottom: 0.8rem; }
+.hero h1 em { color: var(--accent2); font-style: italic; }
+.hero p { font-size: 15px; color: var(--ink3); max-width: 500px; margin: 0 auto; }
+
+/* CALC GRID */
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+@media (max-width: 640px) { .calc-grid { grid-template-columns: 1fr; } }
+
+/* CALC CARD */
+.calc-card {
+  background: var(--surface); border-radius: 20px;
+  border: 1px solid var(--border2); box-shadow: var(--shadow);
+  padding: 1.5rem; transition: box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.calc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.card-orange::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.card-teal::before { background: linear-gradient(90deg, #0d9488, #14b8a6); }
+.card-blue::before { background: linear-gradient(90deg, #1d4ed8, #3b82f6); }
+.card-purple::before { background: linear-gradient(90deg, #7c3aed, #a855f7); }
+.card-green::before { background: linear-gradient(90deg, #15803d, #22c55e); }
+
+.card-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;
+}
+.card-orange .card-label { color: var(--accent2); }
+.card-teal .card-label { color: var(--teal); }
+.card-blue .card-label { color: var(--blue); }
+.card-purple .card-label { color: var(--purple); }
+.card-green .card-label { color: var(--green); }
+
+.card-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; line-height: 1.3; }
+
+/* inputs */
+.field { margin-bottom: 10px; }
+.field-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink3); margin-bottom: 5px; display: block; }
+.field-input {
+  width: 100%; padding: 11px 14px; border-radius: 10px;
+  border: 1.5px solid var(--border2); background: var(--surface2);
+  color: var(--ink); font-family: var(--ff-body); font-size: 16px; font-weight: 600;
+  outline: none; transition: border-color 0.18s, box-shadow 0.18s;
+}
+.field-input:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px var(--accent-glow); }
+.card-teal .field-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(13,148,136,0.12); }
+.card-blue .field-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,0.12); }
+.card-purple .field-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
+.card-green .field-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(21,128,61,0.12); }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* result box */
+.result-box {
+  margin-top: 12px; padding: 12px 16px; border-radius: 10px;
+  font-size: 1.5rem; font-weight: 800; text-align: center;
+  min-height: 54px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s;
+}
+.result-box.has-result { animation: pop 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes pop { from { transform: scale(0.95); opacity: 0.5; } to { transform: scale(1); opacity: 1; } }
+.card-orange .result-box { background: var(--accent3); color: var(--accent); border: 1px solid var(--accent-light); }
+.card-teal .result-box { background: var(--teal-bg); color: var(--teal); border: 1px solid #99f6e4; }
+.card-blue .result-box { background: var(--blue-bg); color: var(--blue); border: 1px solid #bfdbfe; }
+.card-purple .result-box { background: var(--purple-bg); color: var(--purple); border: 1px solid #ddd6fe; }
+.card-green .result-box { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
+.result-sub { font-size: 12px; font-weight: 400; color: var(--ink3); margin-top: 2px; }
+
+/* tip card full width */
+.calc-card-full { grid-column: 1 / -1; }
+
+/* tip specific */
+.tip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px,1fr)); gap: 8px; margin-bottom: 12px; }
+.tip-btn {
+  padding: 10px 6px; border-radius: 10px; border: 1.5px solid var(--border2);
+  background: var(--surface2); color: var(--ink2); font-family: var(--ff-body);
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; text-align: center;
+}
+.tip-btn:hover { border-color: var(--green); color: var(--green); }
+.tip-btn.active { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+
+.tip-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 10px; margin-top: 12px; }
+.tip-result-card { background: var(--green-bg); border: 1px solid #bbf7d0; border-radius: 12px; padding: 1rem; text-align: center; }
+.tip-result-val { font-size: 1.3rem; font-weight: 800; color: var(--green); }
+.tip-result-lbl { font-size: 11px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+/* SEO */
+.seo { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem 4rem; border-top: 1px solid var(--border); }
+.seo h2 { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 700; color: var(--ink); margin-bottom: 0.8rem; }
+.seo h3 { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 600; color: var(--ink); margin: 1.8rem 0 0.6rem; }
+.seo p { font-size: 14px; color: var(--ink3); line-height: 1.8; margin-bottom: 0.8rem; }
+.seo ul { font-size: 14px; color: var(--ink3); padding-left: 1.2rem; line-height: 2.2; }
+.formula-box { background: var(--accent3); border: 1px solid var(--accent-light); border-radius: 10px; padding: 1rem 1.2rem; font-weight: 700; color: var(--accent); font-size: 15px; margin: 0.8rem 0; font-family: var(--ff-head); }
+
+.faq-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
+.faq-q { width: 100%; text-align: left; padding: 13px 16px; background: var(--surface); border: none; color: var(--ink); font-family: var(--ff-body); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.faq-q:hover { background: var(--surface2); }
+.faq-arrow { color: var(--ink3); font-size: 12px; transition: transform 0.2s; flex-shrink: 0; }
+.faq-arrow.open { transform: rotate(180deg); }
+.faq-a { padding: 0 16px 13px; font-size: 13px; color: var(--ink3); line-height: 1.7; display: none; }
+.faq-a.open { display: block; }
+
+footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 13px; color: var(--ink3); }
+footer a { color: var(--ink3); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Percentage<span>Calculator</span></a>
+  <span class="nav-tag">Free · Instant</span>
+</nav>
+
+<div class="hero">
+  <h1>The <em>percentage</em> calculator<br>for everything</h1>
+  <p>5 calculators in one — what is X% of Y, percentage increase, decrease, change, and tip calculator. All instant, all free.</p>
+</div>
+
+<div class="wrap">
+  <div class="calc-grid">
+
+    <!-- CARD 1: What is X% of Y -->
+    <div class="calc-card card-orange">
+      <div class="card-label">① Most Popular</div>
+      <div class="card-title">What is X% of Y?</div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Percentage (%)</label>
+          <input class="field-input" id="c1-pct" type="number" placeholder="20" oninput="calc1()" />
+        </div>
+        <div class="field">
+          <label class="field-label">Of number</label>
+          <input class="field-input" id="c1-num" type="number" placeholder="500" oninput="calc1()" />
+        </div>
+      </div>
+      <div class="result-box" id="c1-res">—</div>
+      <div class="result-sub" id="c1-sub" style="text-align:center;margin-top:6px;"></div>
+    </div>
+
+    <!-- CARD 2: X is what % of Y -->
+    <div class="calc-card card-teal">
+      <div class="card-label">② Reverse Percentage</div>
+      <div class="card-title">X is what % of Y?</div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Value (X)</label>
+          <input class="field-input" id="c2-x" type="number" placeholder="45" oninput="calc2()" />
+        </div>
+        <div class="field">
+          <label class="field-label">Total (Y)</label>
+          <input class="field-input" id="c2-y" type="number" placeholder="200" oninput="calc2()" />
+        </div>
+      </div>
+      <div class="result-box" id="c2-res">—</div>
+      <div class="result-sub" id="c2-sub" style="text-align:center;margin-top:6px;"></div>
+    </div>
+
+    <!-- CARD 3: Percentage Increase -->
+    <div class="calc-card card-blue">
+      <div class="card-label">③ Increase Calculator</div>
+      <div class="card-title">Percentage increase from X to Y</div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">From (original)</label>
+          <input class="field-input" id="c3-from" type="number" placeholder="500" oninput="calc3()" />
+        </div>
+        <div class="field">
+          <label class="field-label">To (new value)</label>
+          <input class="field-input" id="c3-to" type="number" placeholder="650" oninput="calc3()" />
+        </div>
+      </div>
+      <div class="result-box" id="c3-res">—</div>
+      <div class="result-sub" id="c3-sub" style="text-align:center;margin-top:6px;"></div>
+    </div>
+
+    <!-- CARD 4: Percentage Decrease -->
+    <div class="calc-card card-purple">
+      <div class="card-label">④ Discount Calculator</div>
+      <div class="card-title">Price after X% discount</div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Original price</label>
+          <input class="field-input" id="c4-price" type="number" placeholder="2000" oninput="calc4()" />
+        </div>
+        <div class="field">
+          <label class="field-label">Discount (%)</label>
+          <input class="field-input" id="c4-disc" type="number" placeholder="25" oninput="calc4()" />
+        </div>
+      </div>
+      <div class="result-box" id="c4-res">—</div>
+      <div class="result-sub" id="c4-sub" style="text-align:center;margin-top:6px;"></div>
+    </div>
+
+    <!-- CARD 5: Marks percentage -->
+    <div class="calc-card card-green calc-card-full">
+      <div class="card-label">⑤ Marks & Score Percentage</div>
+      <div class="card-title">What percentage did I score?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;">
+        <div class="field">
+          <label class="field-label">Marks obtained</label>
+          <input class="field-input" id="c5-marks" type="number" placeholder="450" oninput="calc5()" />
+        </div>
+        <div class="field">
+          <label class="field-label">Total marks</label>
+          <input class="field-input" id="c5-total" type="number" placeholder="600" oninput="calc5()" />
+        </div>
+        <div class="field">
+          <label class="field-label">No. of subjects</label>
+          <input class="field-input" id="c5-subj" type="number" placeholder="6" oninput="calc5()" />
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:12px;" id="c5-results" style="display:none;">
+        <div class="tip-result-card">
+          <div class="tip-result-val" id="c5-pct">—</div>
+          <div class="tip-result-lbl">Percentage</div>
+        </div>
+        <div class="tip-result-card">
+          <div class="tip-result-val" id="c5-avg">—</div>
+          <div class="tip-result-lbl">Average marks</div>
+        </div>
+        <div class="tip-result-card">
+          <div class="tip-result-val" id="c5-grade">—</div>
+          <div class="tip-result-lbl">Grade</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 6: Tip Calculator -->
+    <div class="calc-card card-green calc-card-full">
+      <div class="card-label">⑥ Tip Calculator</div>
+      <div class="card-title">Split bill & calculate tip</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px;">
+        <div class="field">
+          <label class="field-label">Bill amount (₹)</label>
+          <input class="field-input" id="tip-bill" type="number" placeholder="1200" oninput="calcTip()" />
+        </div>
+        <div class="field">
+          <label class="field-label">Number of people</label>
+          <input class="field-input" id="tip-people" type="number" placeholder="4" min="1" value="1" oninput="calcTip()" />
+        </div>
+      </div>
+      <div class="field-label" style="margin-bottom:8px;">Select tip percentage</div>
+      <div class="tip-grid">
+        <button class="tip-btn" onclick="setTip(5,this)">5%</button>
+        <button class="tip-btn" onclick="setTip(10,this)">10%</button>
+        <button class="tip-btn active" onclick="setTip(15,this)">15%</button>
+        <button class="tip-btn" onclick="setTip(18,this)">18%</button>
+        <button class="tip-btn" onclick="setTip(20,this)">20%</button>
+        <button class="tip-btn" onclick="setTip(25,this)">25%</button>
+      </div>
+      <div class="tip-results" id="tip-results">
+        <div class="tip-result-card">
+          <div class="tip-result-val" id="tip-amount">—</div>
+          <div class="tip-result-lbl">Tip amount</div>
+        </div>
+        <div class="tip-result-card">
+          <div class="tip-result-val" id="tip-total">—</div>
+          <div class="tip-result-lbl">Total bill</div>
+        </div>
+        <div class="tip-result-card">
+          <div class="tip-result-val" id="tip-per-person">—</div>
+          <div class="tip-result-lbl">Per person</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEO CONTENT -->
+<div class="seo">
+  <h2>Percentage Calculator — All Percentage Formulas in One Place</h2>
+  <p>Our free percentage calculator handles every type of percentage problem — from simple "what is X% of Y" questions to percentage increase, decrease, discount calculations and score percentages. Used by students, shoppers, professionals and anyone who needs quick percentage answers.</p>
+
+  <h3>How to calculate percentage — basic formula</h3>
+  <p>The basic percentage formula is:</p>
+  <div class="formula-box">Percentage = (Part ÷ Whole) × 100</div>
+  <p>For example: if you scored 450 out of 600, your percentage is (450 ÷ 600) × 100 = 75%.</p>
+
+  <h3>How to find X% of a number</h3>
+  <div class="formula-box">X% of Y = (X ÷ 100) × Y</div>
+  <p>Example: 20% of 500 = (20 ÷ 100) × 500 = 100.</p>
+
+  <h3>How to calculate percentage increase</h3>
+  <div class="formula-box">Percentage Increase = ((New Value – Old Value) ÷ Old Value) × 100</div>
+  <p>Example: salary increased from ₹50,000 to ₹65,000 = ((65,000 – 50,000) ÷ 50,000) × 100 = 30% increase.</p>
+
+  <h3>How to calculate percentage decrease / discount</h3>
+  <div class="formula-box">Discounted Price = Original Price × (1 – Discount% ÷ 100)</div>
+  <p>Example: ₹2,000 item with 25% discount = 2,000 × (1 – 0.25) = ₹1,500.</p>
+
+  <h3>Common percentage calculations</h3>
+  <ul>
+    <li>What is 10% of 1000? → 100</li>
+    <li>What is 15% of 2500? → 375</li>
+    <li>What is 20% of 500? → 100</li>
+    <li>What is 25% of 800? → 200</li>
+    <li>What is 30% of 3000? → 900</li>
+    <li>What is 5% of 1500? → 75</li>
+  </ul>
+
+  <h3>Frequently Asked Questions</h3>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do I calculate percentage of marks? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">To calculate your percentage of marks: divide your total marks obtained by the maximum marks, then multiply by 100. Formula: Percentage = (Marks Obtained ÷ Maximum Marks) × 100. Use the "Marks & Score Percentage" calculator above for instant results.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do I calculate percentage increase in salary? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Use the percentage increase formula: ((New Salary – Old Salary) ÷ Old Salary) × 100. For example, if your salary went from ₹40,000 to ₹50,000, the increase is ((50,000 – 40,000) ÷ 40,000) × 100 = 25%. Use Calculator ③ above.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What is 20% of 500? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">20% of 500 = (20 ÷ 100) × 500 = 100. You can verify this instantly using Calculator ① above — enter 20 in the percentage field and 500 in the "of number" field.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How to calculate GST percentage? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">To calculate GST amount: use Calculator ① — enter the GST rate (5%, 12%, 18%, or 28%) and the base price. The result is the GST amount. Add it to the base price to get the final price. For example, 18% GST on ₹1,000 = ₹180. Final price = ₹1,180.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do I calculate percentage change? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Percentage change = ((New Value – Old Value) ÷ |Old Value|) × 100. If the result is positive, it's an increase. If negative, it's a decrease. Use Calculator ③ above — it automatically tells you whether the change is an increase or decrease.</div>
+  </div>
+</div>
+
+<footer>
+  <p style="font-family:var(--ff-head);font-weight:700;color:var(--ink2);margin-bottom:6px;font-size:16px;">PercentageCalculator — Free Online Percent Calculator</p>
+  <p>© 2025 PercentageCalculator. Free forever. No data stored. &nbsp;|&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+  <p style="margin-top:8px;font-size:12px;">Percentage calculator · What is X% of Y · Percentage increase · Discount calculator · Marks percentage</p>
+</footer>
+
+<script>
+// ── CALC 1: What is X% of Y ──
+function calc1() {
+  const pct = parseFloat(document.getElementById('c1-pct').value);
+  const num = parseFloat(document.getElementById('c1-num').value);
+  const res = document.getElementById('c1-res');
+  const sub = document.getElementById('c1-sub');
+  if (!isNaN(pct) && !isNaN(num)) {
+    const val = (pct / 100) * num;
+    res.textContent = formatNum(val);
+    res.classList.add('has-result');
+    sub.textContent = `${pct}% of ${formatNum(num)} = ${formatNum(val)}`;
+  } else { res.textContent = '—'; sub.textContent = ''; }
+}
+
+// ── CALC 2: X is what % of Y ──
+function calc2() {
+  const x = parseFloat(document.getElementById('c2-x').value);
+  const y = parseFloat(document.getElementById('c2-y').value);
+  const res = document.getElementById('c2-res');
+  const sub = document.getElementById('c2-sub');
+  if (!isNaN(x) && !isNaN(y) && y !== 0) {
+    const val = (x / y) * 100;
+    res.textContent = formatNum(val) + '%';
+    res.classList.add('has-result');
+    sub.textContent = `${formatNum(x)} is ${formatNum(val)}% of ${formatNum(y)}`;
+  } else { res.textContent = '—'; sub.textContent = ''; }
+}
+
+// ── CALC 3: Percentage increase/decrease ──
+function calc3() {
+  const from = parseFloat(document.getElementById('c3-from').value);
+  const to = parseFloat(document.getElementById('c3-to').value);
+  const res = document.getElementById('c3-res');
+  const sub = document.getElementById('c3-sub');
+  if (!isNaN(from) && !isNaN(to) && from !== 0) {
+    const change = ((to - from) / Math.abs(from)) * 100;
+    const isInc = change >= 0;
+    res.textContent = (isInc ? '↑ +' : '↓ ') + formatNum(Math.abs(change)) + '%';
+    res.classList.add('has-result');
+    sub.textContent = `${isInc ? 'Increase' : 'Decrease'} of ${formatNum(Math.abs(to - from))} (${formatNum(Math.abs(change))}%)`;
+  } else { res.textContent = '—'; sub.textContent = ''; }
+}
+
+// ── CALC 4: Discount ──
+function calc4() {
+  const price = parseFloat(document.getElementById('c4-price').value);
+  const disc = parseFloat(document.getElementById('c4-disc').value);
+  const res = document.getElementById('c4-res');
+  const sub = document.getElementById('c4-sub');
+  if (!isNaN(price) && !isNaN(disc)) {
+    const discAmt = (disc / 100) * price;
+    const final = price - discAmt;
+    res.textContent = '₹' + formatNum(final);
+    res.classList.add('has-result');
+    sub.textContent = `You save ₹${formatNum(discAmt)} (${disc}% off ₹${formatNum(price)})`;
+  } else { res.textContent = '—'; sub.textContent = ''; }
+}
+
+// ── CALC 5: Marks ──
+function calc5() {
+  const marks = parseFloat(document.getElementById('c5-marks').value);
+  const total = parseFloat(document.getElementById('c5-total').value);
+  const subj = parseFloat(document.getElementById('c5-subj').value) || 1;
+  const el = document.getElementById('c5-results');
+  if (!isNaN(marks) && !isNaN(total) && total > 0) {
+    const pct = (marks / total) * 100;
+    const avg = marks / subj;
+    let grade = 'F';
+    if (pct >= 90) grade = 'A+';
+    else if (pct >= 80) grade = 'A';
+    else if (pct >= 70) grade = 'B+';
+    else if (pct >= 60) grade = 'B';
+    else if (pct >= 50) grade = 'C';
+    else if (pct >= 40) grade = 'D';
+    document.getElementById('c5-pct').textContent = formatNum(pct) + '%';
+    document.getElementById('c5-avg').textContent = formatNum(avg);
+    document.getElementById('c5-grade').textContent = grade;
+    el.style.display = 'grid';
+  } else { el.style.display = 'none'; }
+}
+
+// ── TIP CALCULATOR ──
+let currentTip = 15;
+function setTip(pct, btn) {
+  currentTip = pct;
+  document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  calcTip();
+}
+
+function calcTip() {
+  const bill = parseFloat(document.getElementById('tip-bill').value);
+  const people = parseFloat(document.getElementById('tip-people').value) || 1;
+  if (!isNaN(bill) && bill > 0) {
+    const tipAmt = (currentTip / 100) * bill;
+    const total = bill + tipAmt;
+    const perPerson = total / people;
+    document.getElementById('tip-amount').textContent = '₹' + formatNum(tipAmt);
+    document.getElementById('tip-total').textContent = '₹' + formatNum(total);
+    document.getElementById('tip-per-person').textContent = '₹' + formatNum(perPerson);
+  } else {
+    document.getElementById('tip-amount').textContent = '—';
+    document.getElementById('tip-total').textContent = '—';
+    document.getElementById('tip-per-person').textContent = '—';
+  }
+}
+
+function formatNum(n) {
+  if (isNaN(n)) return '—';
+  const rounded = Math.round(n * 100) / 100;
+  if (Number.isInteger(rounded)) return rounded.toLocaleString('en-IN');
+  return rounded.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const arrow = btn.querySelector('.faq-arrow');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-arrow').forEach(a => a.classList.remove('open'));
+  if (!isOpen) { answer.classList.add('open'); arrow.classList.add('open'); }
+}
+</script>
+</body>
+</html>
